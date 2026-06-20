@@ -1,0 +1,62 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+movies = {
+    "Movie": [
+        "RRR", "Baahubali", "Pushpa", "Salaar",
+        "KGF", "Kalki", "Hi Nanna", "Devara"
+    ],
+    "Genre": [
+        "Action", "Action", "Action", "Action",
+        "Action", "Sci-Fi", "Drama", "Action"
+    ],
+    "Rating": [
+        8.8, 8.5, 7.9, 8.3,
+        8.4, 8.7, 8.1, 8.0
+    ],
+    "Votes": [
+        250000, 220000, 180000, 200000,
+        210000, 230000, 90000, 150000
+    ]
+}
+df = pd.DataFrame(movies)
+print("\nMovie Dataset:")
+print(df)
+print("\nDataset Information:")
+print(df.info())
+print("\nSummary Statistics:")
+print(df.describe())
+avg_rating = df["Rating"].mean()
+print("\nAverage Rating:", round(avg_rating, 2))
+highest_rated = df.loc[df["Rating"].idxmax()]
+print("\nHighest Rated Movie:")
+print(highest_rated)
+lowest_rated = df.loc[df["Rating"].idxmin()]
+print("\nLowest Rated Movie:")
+print(lowest_rated)
+top_movies = df.sort_values(by="Rating", ascending=False).head(5)
+print("\nTop 5 Movies:")
+print(top_movies)
+plt.figure(figsize=(8,5))
+plt.bar(df["Movie"], df["Rating"])
+plt.title("Movie Ratings")
+plt.xlabel("Movies")
+plt.ylabel("Rating")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+plt.figure(figsize=(8,5))
+plt.pie(
+    df["Votes"],
+    labels=df["Movie"],
+    autopct="%1.1f%%"
+)
+plt.title("Movie Votes Distribution")
+plt.show()
+plt.figure(figsize=(8,5))
+plt.scatter(df["Votes"], df["Rating"])
+plt.title("Rating vs Votes")
+plt.xlabel("Votes")
+plt.ylabel("Rating")
+plt.show()
+
+print("\nMovie Rating Analysis Completed Successfully!")
